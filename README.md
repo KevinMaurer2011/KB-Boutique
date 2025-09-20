@@ -1,6 +1,6 @@
-# Boutique - Elegant Fashion Website
+# K&B Boutique - Elegant Fashion Website
 
-A beautiful, responsive static website for a boutique fashion store, designed to be hosted on GitHub Pages.
+A beautiful, responsive static website for K&B Boutique fashion store, designed to be hosted on GitHub Pages.
 
 ## 🌟 Features
 
@@ -85,11 +85,11 @@ Replace the placeholder divs with actual images:
 <!-- Replace this -->
 <div class="hero-placeholder">
     <i class="fas fa-gem"></i>
-    <p>Your Boutique Image</p>
+    <p>Your K&B Boutique Image</p>
 </div>
 
 <!-- With this -->
-<img src="images/hero-image.jpg" alt="Boutique Interior" class="hero-image">
+<img src="images/hero-image.jpg" alt="K&B Boutique Interior" class="hero-image">
 ```
 
 ### Color Customization
