@@ -1,0 +1,65 @@
+# GitHub Pages Configuration
+title: Boutique - Elegant Fashion & Style
+description: Discover our curated collection of elegant fashion pieces at Boutique. Unique styles, quality craftsmanship, and timeless beauty.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Collections
+collections:
+  - collections
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "collections"
+    values:
+      layout: "collection"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .github/
+  - README.md
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO
+author: Boutique
+twitter:
+  username: boutique
+  card: summary_large_image
+
+# Social
+social:
+  name: Boutique
+  links:
+    - https://facebook.com/boutique
+    - https://instagram.com/boutique
+    - https://twitter.com/boutique
+    - https://pinterest.com/boutique
