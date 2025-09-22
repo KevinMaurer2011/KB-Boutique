@@ -309,3 +309,51 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Gallery configuration
+const GALLERY_CONFIG = {
+    photoCount: 16, // Update this number to match your total photos
+    photoPrefix: 'photo',
+    photoExtension: '.jpg',
+    galleryPath: 'images/gallery/'
+};
+
+// Load gallery photos dynamically
+function loadGalleryPhotos() {
+    const galleryScroll = document.getElementById('gallery-scroll');
+    
+    // Clear existing content
+    galleryScroll.innerHTML = '';
+    
+    // Generate gallery items for each photo
+    for (let i = 1; i <= GALLERY_CONFIG.photoCount; i++) {
+        const photoName = `${GALLERY_CONFIG.photoPrefix}${i}${GALLERY_CONFIG.photoExtension}`;
+        const photoPath = `${GALLERY_CONFIG.galleryPath}${photoName}`;
+        
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        galleryItem.innerHTML = `
+            <img src="${photoPath}" alt="K&B Boutique Item ${i}" class="gallery-img" 
+                 onerror="this.style.display='none'; this.parentElement.style.display='none';">
+        `;
+        
+        galleryScroll.appendChild(galleryItem);
+    }
+}
+
+// Gallery scrolling function
+function scrollGallery(direction) {
+    const galleryScroll = document.querySelector('.gallery-scroll');
+    const scrollAmount = 320; // Width of one gallery item + gap
+    
+    if (direction === 1) {
+        galleryScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+        galleryScroll.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+}
+
+// Initialize gallery when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadGalleryPhotos();
+});

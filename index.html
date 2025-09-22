@@ -24,7 +24,7 @@
                     <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#collections" class="nav-link">Collections</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
                     <a href="#contact" class="nav-link">Contact</a>
@@ -44,15 +44,12 @@
             <h1 class="hero-title">Elegant Fashion for the Modern Woman</h1>
             <p class="hero-subtitle">Discover our curated collection of timeless pieces that celebrate your unique style</p>
             <div class="hero-buttons">
-                <a href="#collections" class="btn btn-primary">Shop Now</a>
+                <a href="#gallery" class="btn btn-primary">View Gallery</a>
                 <a href="#about" class="btn btn-secondary">Learn More</a>
             </div>
         </div>
         <div class="hero-image">
-            <div class="hero-placeholder">
-                <i class="fas fa-gem"></i>
-                <p>Your K&B Boutique Image</p>
-            </div>
+            <img src="images/hero-image.jpg" alt="K&B Boutique Interior" class="hero-img">
         </div>
     </section>
 
@@ -83,65 +80,29 @@
                     </div>
                 </div>
                 <div class="about-image">
-                    <div class="about-placeholder">
-                        <i class="fas fa-store"></i>
-                        <p>K&B Boutique Interior</p>
-                    </div>
+                    <img src="images/about-image.jpg" alt="K&B Boutique Interior" class="about-img">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Collections Section -->
-    <section id="collections" class="collections">
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
         <div class="container">
-            <h2>Our Collections</h2>
-            <p class="collections-subtitle">Explore our carefully curated fashion collections</p>
+            <h2>Gallery</h2>
+            <p class="gallery-subtitle">Browse through our latest pieces and boutique highlights</p>
             
-            <div class="collections-grid">
-                <div class="collection-card">
-                    <div class="collection-image">
-                        <div class="collection-placeholder">
-                            <i class="fas fa-tshirt"></i>
-                        </div>
-                        <div class="collection-overlay">
-                            <a href="#" class="btn btn-outline">View Collection</a>
-                        </div>
-                    </div>
-                    <div class="collection-info">
-                        <h3>Evening Wear</h3>
-                        <p>Elegant pieces for special occasions</p>
-                    </div>
+            <div class="gallery-container">
+                <div class="gallery-scroll" id="gallery-scroll">
+                    <!-- Gallery items will be dynamically loaded here -->
                 </div>
-
-                <div class="collection-card">
-                    <div class="collection-image">
-                        <div class="collection-placeholder">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="collection-overlay">
-                            <a href="#" class="btn btn-outline">View Collection</a>
-                        </div>
-                    </div>
-                    <div class="collection-info">
-                        <h3>Casual Chic</h3>
-                        <p>Comfortable yet stylish everyday wear</p>
-                    </div>
-                </div>
-
-                <div class="collection-card">
-                    <div class="collection-image">
-                        <div class="collection-placeholder">
-                            <i class="fas fa-gem"></i>
-                        </div>
-                        <div class="collection-overlay">
-                            <a href="#" class="btn btn-outline">View Collection</a>
-                        </div>
-                    </div>
-                    <div class="collection-info">
-                        <h3>Accessories</h3>
-                        <p>Perfect finishing touches for any outfit</p>
-                    </div>
+                <div class="gallery-controls">
+                    <button class="gallery-btn prev-btn" onclick="scrollGallery(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="gallery-btn next-btn" onclick="scrollGallery(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -160,7 +121,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <h3>Location</h3>
-                                <p>204 E Main St<br>, MO 63028</p>
+                                <p>204 E Main St<br>Festus, MO 63028</p>
                             </div>
                         </div>
                         
@@ -190,20 +151,26 @@
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h3>Get in Touch</h3>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
+                <div class="map-container">
+                    <h3>Find Us</h3>
+                    <div class="map-wrapper">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.123456789012!2d-90.394516!3d38.220768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d8b9c123456789%3A0xabcdef1234567890!2s204%20E%20Main%20St%2C%20Festus%2C%20MO%2063028!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus"
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="K&B Boutique Location - 204 E Main St, Festus, MO 63028">
+                        </iframe>
+                    </div>
+                    <div class="map-info">
+                        <p><strong>K&B Boutique</strong><br>
+                        204 E Main St<br>
+                        Festus, MO 63028</p>
+                        <p class="map-phone">Phone: (314) 403-9049</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -229,7 +196,7 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#collections">Collections</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -237,21 +204,13 @@
                 <div class="footer-section">
                     <h4>Customer Service</h4>
                     <ul>
-                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="sizing-guide.html">Size Guide</a></li>
                         <li><a href="#">Shipping Info</a></li>
                         <li><a href="#">Returns</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Subscribe for the latest fashion updates and exclusive offers.</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="Your email address">
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </div>
-                </div>
             </div>
             
             <div class="footer-bottom">

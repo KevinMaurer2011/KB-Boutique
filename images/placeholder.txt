@@ -1,0 +1,42 @@
+# Image Placeholder Guide
+
+## How to Add Your Images
+
+### Main Images (in /images/ folder):
+1. **hero-image.jpg** - Your main banner/hero image
+2. **about-image.jpg** - Image for the about section
+3. **logo.png** - Your boutique logo (optional)
+
+### Gallery Images (in /images/gallery/ folder):
+1. **photo1.jpg** - First gallery photo
+2. **photo2.jpg** - Second gallery photo
+3. **photo3.jpg** - Third gallery photo
+4. **photo4.jpg** - Fourth gallery photo
+5. **photo5.jpg** - Fifth gallery photo
+6. **photo6.jpg** - Sixth gallery photo
+7. **photo7.jpg** - Seventh gallery photo
+8. **photo8.jpg** - Eighth gallery photo
+9. **photo9.jpg** - Ninth gallery photo
+10. **photo10.jpg** - Tenth gallery photo
+11. **photo11.jpg** - Eleventh gallery photo
+12. **photo12.jpg** - Twelfth gallery photo
+
+### Recommended Image Sizes:
+- Hero image: 1200x600px
+- About image: 600x400px
+- Gallery images: 400x500px
+- Logo: 200x100px
+
+### File Formats:
+- Use .jpg for photos
+- Use .png for logos/graphics with transparency
+- Keep file sizes under 500KB for fast loading
+
+## Quick Start:
+1. Replace this placeholder.txt file with your actual images
+2. Name them exactly as shown above (photo1.jpg, photo2.jpg, etc.)
+3. Your website will automatically display ALL 12 photos in a scrollable gallery!
+4. If you have more than 12 photos, update the `photoCount` in script.js
+
+## Need Help?
+Check the README.md file in this folder for detailed instructions.
