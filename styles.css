@@ -114,6 +114,18 @@ h3 {
     height: 70px;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
 .nav-logo h2 {
     color: #d4af37;
     font-size: 1.8rem;
@@ -682,6 +694,14 @@ h3 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .logo-img {
+        height: 35px;
+    }
+    
+    .nav-logo h2 {
+        font-size: 1.5rem;
+    }
+
     .hamburger {
         display: flex;
     }
