@@ -321,7 +321,11 @@ const GALLERY_CONFIG = {
 // Load gallery photos dynamically
 function loadGalleryPhotos() {
     const galleryScroll = document.getElementById('gallery-scroll');
-    
+
+    if (!galleryScroll) {
+        return;
+    }
+
     // Clear existing content
     galleryScroll.innerHTML = '';
     
@@ -343,9 +347,14 @@ function loadGalleryPhotos() {
 
 // Gallery scrolling function
 function scrollGallery(direction) {
-    const galleryScroll = document.querySelector('.gallery-scroll');
+    const galleryScroll = document.getElementById('gallery-scroll');
+
+    if (!galleryScroll) {
+        return;
+    }
+
     const scrollAmount = 320; // Width of one gallery item + gap
-    
+
     if (direction === 1) {
         galleryScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     } else {
@@ -355,5 +364,11 @@ function scrollGallery(direction) {
 
 // Initialize gallery when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    const galleryScroll = document.getElementById('gallery-scroll');
+
+    if (!galleryScroll) {
+        return;
+    }
+
     loadGalleryPhotos();
 });
