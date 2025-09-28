@@ -28,6 +28,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Loading state handling
+const removeLoadingState = () => {
+    document.body.classList.remove('is-loading');
+};
+
+const handleInitialLoad = () => {
+    requestAnimationFrame(() => {
+        requestAnimationFrame(removeLoadingState);
+    });
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleInitialLoad);
+} else {
+    handleInitialLoad();
+}
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        removeLoadingState();
+    }
+});
+
 // Navbar background change on scroll
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
@@ -213,16 +236,6 @@ window.addEventListener('scroll', () => {
         const rate = scrolled * -0.5;
         heroImage.style.transform = `translateY(${rate}px)`;
     }
-});
-
-// Loading animation
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
 });
 
 // Add smooth transitions to all interactive elements
