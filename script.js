@@ -228,87 +228,221 @@ notificationStyles.textContent = `
 `;
 document.head.appendChild(notificationStyles);
 
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+// Motion preference handling
+const motionMediaQuery = typeof window.matchMedia === 'function'
+    ? window.matchMedia('(prefers-reduced-motion: no-preference)')
+    : null;
+let motionFeaturesEnabled = false;
+let animationObserver = null;
+let observedMotionElements = [];
+let transitionStyleElement = null;
+let heroParallaxHandler = null;
+let loadFadeHandler = null;
+let loadFadeTimeoutId = null;
+let loadFadeRan = false;
+
+const cardHoverEnter = function() {
+    this.style.transform = 'translateY(-10px) scale(1.02)';
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+const cardHoverLeave = function() {
+    this.style.transform = 'translateY(0) scale(1)';
+};
 
-// Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.feature, .collection-card, .contact-item');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
-
-// Collection card hover effects
-document.querySelectorAll('.collection-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroImage = document.querySelector('.hero-image');
-    if (heroImage) {
-        const rate = scrolled * -0.5;
-        heroImage.style.transform = `translateY(${rate}px)`;
+const startLoadFade = () => {
+    if (!document.body) {
+        return;
     }
-});
 
-// Loading animation
-window.addEventListener('load', () => {
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-});
+    loadFadeRan = true;
 
-// Add smooth transitions to all interactive elements
-const style = document.createElement('style');
-style.textContent = `
-    * {
-        transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    if (loadFadeTimeoutId) {
+        clearTimeout(loadFadeTimeoutId);
     }
-    
-    .collection-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    loadFadeTimeoutId = window.setTimeout(() => {
+        document.body.style.opacity = '1';
+        loadFadeTimeoutId = null;
+    }, 100);
+};
+
+const scheduleLoadFade = () => {
+    if (loadFadeRan || document.readyState === 'complete') {
+        return;
     }
-    
-    .btn {
-        transition: all 0.3s ease;
+
+    if (!loadFadeHandler) {
+        loadFadeHandler = () => {
+            startLoadFade();
+            window.removeEventListener('load', loadFadeHandler);
+            loadFadeHandler = null;
+        };
+        window.addEventListener('load', loadFadeHandler);
     }
-    
-    .nav-link {
-        transition: color 0.3s ease;
+};
+
+const enableMotionFeatures = () => {
+    if (motionFeaturesEnabled) {
+        return;
     }
-    
-    .social-links a {
-        transition: transform 0.3s ease, background-color 0.3s ease;
+
+    motionFeaturesEnabled = true;
+
+    if ('IntersectionObserver' in window) {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        observedMotionElements = Array.from(document.querySelectorAll('.feature, .collection-card, .contact-item'));
+        observedMotionElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            animationObserver.observe(el);
+        });
     }
-`;
-document.head.appendChild(style);
+
+    const collectionCards = document.querySelectorAll('.collection-card');
+    collectionCards.forEach(card => {
+        card.addEventListener('mouseenter', cardHoverEnter);
+        card.addEventListener('mouseleave', cardHoverLeave);
+    });
+
+    heroParallaxHandler = () => {
+        const scrolled = window.pageYOffset;
+        const heroImage = document.querySelector('.hero-image');
+        if (heroImage) {
+            const rate = scrolled * -0.5;
+            heroImage.style.transform = `translateY(${rate}px)`;
+        }
+    };
+
+    window.addEventListener('scroll', heroParallaxHandler);
+
+    scheduleLoadFade();
+
+    transitionStyleElement = document.createElement('style');
+    transitionStyleElement.textContent = `
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .collection-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+
+        .social-links a {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    `;
+    document.head.appendChild(transitionStyleElement);
+};
+
+const disableMotionFeatures = () => {
+    if (!motionFeaturesEnabled) {
+        return;
+    }
+
+    motionFeaturesEnabled = false;
+
+    if (animationObserver) {
+        animationObserver.disconnect();
+        animationObserver = null;
+    }
+
+    observedMotionElements.forEach(el => {
+        el.style.removeProperty('opacity');
+        el.style.removeProperty('transform');
+        el.style.removeProperty('transition');
+    });
+    observedMotionElements = [];
+
+    const collectionCards = document.querySelectorAll('.collection-card');
+    collectionCards.forEach(card => {
+        card.removeEventListener('mouseenter', cardHoverEnter);
+        card.removeEventListener('mouseleave', cardHoverLeave);
+        card.style.removeProperty('transform');
+    });
+
+    if (heroParallaxHandler) {
+        window.removeEventListener('scroll', heroParallaxHandler);
+        heroParallaxHandler = null;
+    }
+
+    const heroImage = document.querySelector('.hero-image');
+    if (heroImage) {
+        heroImage.style.removeProperty('transform');
+    }
+
+    if (loadFadeHandler) {
+        window.removeEventListener('load', loadFadeHandler);
+        loadFadeHandler = null;
+    }
+
+    if (loadFadeTimeoutId) {
+        clearTimeout(loadFadeTimeoutId);
+        loadFadeTimeoutId = null;
+    }
+
+    if (document.body) {
+        document.body.style.removeProperty('opacity');
+        document.body.style.removeProperty('transition');
+    }
+
+    if (transitionStyleElement && transitionStyleElement.parentNode) {
+        transitionStyleElement.parentNode.removeChild(transitionStyleElement);
+    }
+
+    transitionStyleElement = null;
+};
+
+const onDomReady = (callback) => {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', callback, { once: true });
+    } else {
+        callback();
+    }
+};
+
+if (!motionMediaQuery || motionMediaQuery.matches) {
+    onDomReady(enableMotionFeatures);
+}
+
+if (motionMediaQuery) {
+    const handleMotionPreferenceChange = (event) => {
+        if (event.matches) {
+            onDomReady(enableMotionFeatures);
+        } else {
+            disableMotionFeatures();
+        }
+    };
+
+    if (typeof motionMediaQuery.addEventListener === 'function') {
+        motionMediaQuery.addEventListener('change', handleMotionPreferenceChange);
+    } else if (typeof motionMediaQuery.addListener === 'function') {
+        motionMediaQuery.addListener(handleMotionPreferenceChange);
+    }
+}
 
 // Gallery configuration
 const GALLERY_CONFIG = {
