@@ -540,6 +540,17 @@ h3 {
     line-height: 1.6;
 }
 
+.contact-item p a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item p a:hover {
+    color: #d4af37;
+    text-decoration: underline;
+}
+
 .map-container {
     background: #f8f9fa;
     padding: 2rem;
@@ -592,6 +603,17 @@ h3 {
 .map-phone {
     color: #666 !important;
     font-size: 1rem !important;
+}
+
+.map-phone a {
+    color: #666 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.map-phone a:hover {
+    color: #d4af37 !important;
+    text-decoration: underline;
 }
 
 /* Mobile Map */
