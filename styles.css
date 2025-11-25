@@ -29,7 +29,12 @@ body.is-loading {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     line-height: 1.2;
@@ -471,17 +476,17 @@ h3 {
         flex: 0 0 250px;
         height: 350px;
     }
-    
+
     .gallery-btn {
         width: 40px;
         height: 40px;
         font-size: 1rem;
     }
-    
+
     .prev-btn {
         left: 5px;
     }
-    
+
     .next-btn {
         right: 5px;
     }
@@ -621,11 +626,11 @@ h3 {
     .map-wrapper {
         height: 300px;
     }
-    
+
     .map-container {
         padding: 1.5rem;
     }
-    
+
     .map-info p {
         font-size: 1rem;
     }
@@ -772,6 +777,7 @@ h3 {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -783,6 +789,7 @@ h3 {
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(100%);
         opacity: 0;
@@ -790,21 +797,189 @@ h3 {
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
+/* Testimonials Section */
+.testimonials {
+    padding: 100px 0;
+    background: #f8f9fa;
+}
+
+.testimonials h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.stars {
+    color: #d4af37;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.testimonial-card h4 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #d4af37;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #b8860b;
+    transform: translateY(-3px);
+}
+
+/* Newsletter Popup */
+.newsletter-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.newsletter-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter-popup.active .popup-content {
+    transform: scale(1);
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.popup-close:hover {
+    color: #333;
+}
+
+.popup-body h3 {
+    color: #d4af37;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.popup-body p {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.newsletter-form input {
+    padding: 12px 20px;
+    border: 2px solid #eee;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.newsletter-form input:focus {
+    border-color: #d4af37;
+}
+
+.newsletter-form button {
+    width: 100%;
+}
+
+
 @keyframes fadeInRight {
     from {
         opacity: 0;
         transform: translateX(30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -816,7 +991,7 @@ h3 {
     .logo-img {
         height: 35px;
     }
-    
+
     .nav-logo h2 {
         font-size: 1.5rem;
     }

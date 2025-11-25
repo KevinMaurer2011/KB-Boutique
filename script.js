@@ -88,50 +88,50 @@ window.addEventListener('scroll', () => {
 // Form submission handling
 const contactForm = document.querySelector('.contact-form form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(this);
         const name = formData.get('name');
         const email = formData.get('email');
         const message = formData.get('message');
-        
+
         // Simple validation
         if (!name || !email || !message) {
             showNotification('Please fill in all fields.', 'error');
             return;
         }
-        
+
         if (!isValidEmail(email)) {
             showNotification('Please enter a valid email address.', 'error');
             return;
         }
-        
+
         // Simulate form submission
         showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
         this.reset();
     });
 }
 
-// Newsletter subscription
-const newsletterForm = document.querySelector('.newsletter-form');
+// Newsletter subscription (Footer)
+const newsletterForm = document.querySelector('.footer .newsletter-form');
 if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function(e) {
+    newsletterForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         const email = this.querySelector('input[type="email"]').value;
-        
+
         if (!email) {
             showNotification('Please enter your email address.', 'error');
             return;
         }
-        
+
         if (!isValidEmail(email)) {
             showNotification('Please enter a valid email address.', 'error');
             return;
         }
-        
+
         showNotification('Thank you for subscribing to our newsletter!', 'success');
         this.reset();
     });
@@ -150,7 +150,7 @@ function showNotification(message, type = 'info') {
     if (existingNotification) {
         existingNotification.remove();
     }
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -219,11 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Collection card hover effects
 document.querySelectorAll('.collection-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-10px) scale(1.02)';
     });
-    
-    card.addEventListener('mouseleave', function() {
+
+    card.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0) scale(1)';
     });
 });
@@ -252,7 +252,7 @@ style.textContent = `
     .btn {
         transition: all 0.3s ease;
     }
-    
+
     .nav-link {
         transition: color 0.3s ease;
     }
@@ -260,8 +260,78 @@ style.textContent = `
     .social-links a {
         transition: transform 0.3s ease, background-color 0.3s ease;
     }
+
+    .back-to-top {
+        transition: all 0.3s ease;
+    }
 `;
 document.head.appendChild(style);
+
+// Back to Top Button
+const backToTopBtn = document.getElementById('back-to-top');
+
+if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Newsletter Popup
+const newsletterPopup = document.getElementById('newsletter-popup');
+const popupClose = document.querySelector('.popup-close');
+const newsletterFormPopup = document.querySelector('.newsletter-popup .newsletter-form');
+
+// Show popup after 5 seconds if not already shown
+if (newsletterPopup && !localStorage.getItem('newsletterShown')) {
+    setTimeout(() => {
+        newsletterPopup.classList.add('active');
+    }, 5000);
+}
+
+// Close popup
+if (popupClose) {
+    popupClose.addEventListener('click', () => {
+        newsletterPopup.classList.remove('active');
+        localStorage.setItem('newsletterShown', 'true');
+    });
+}
+
+// Close on outside click
+if (newsletterPopup) {
+    newsletterPopup.addEventListener('click', (e) => {
+        if (e.target === newsletterPopup) {
+            newsletterPopup.classList.remove('active');
+            localStorage.setItem('newsletterShown', 'true');
+        }
+    });
+}
+
+// Handle form submission for popup
+if (newsletterFormPopup) {
+    newsletterFormPopup.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = newsletterFormPopup.querySelector('input[type="email"]').value;
+        if (isValidEmail(email)) {
+            showNotification('Thank you for subscribing!', 'success');
+            newsletterPopup.classList.remove('active');
+            localStorage.setItem('newsletterShown', 'true');
+            newsletterFormPopup.reset();
+        } else {
+            showNotification('Please enter a valid email address.', 'error');
+        }
+    });
+}
 
 // Gallery configuration
 const GALLERY_CONFIG = {
@@ -281,19 +351,19 @@ function loadGalleryPhotos() {
 
     // Clear existing content
     galleryScroll.innerHTML = '';
-    
+
     // Generate gallery items for each photo
     for (let i = 1; i <= GALLERY_CONFIG.photoCount; i++) {
         const photoName = `${GALLERY_CONFIG.photoPrefix}${i}${GALLERY_CONFIG.photoExtension}`;
         const photoPath = `${GALLERY_CONFIG.galleryPath}${photoName}`;
-        
+
         const galleryItem = document.createElement('div');
         galleryItem.className = 'gallery-item';
         galleryItem.innerHTML = `
-            <img src="${photoPath}" alt="K&B Boutique Item ${i}" class="gallery-img" 
+            <img src="${photoPath}" alt="K&B Boutique Item ${i}" class="gallery-img" loading="lazy"
                  onerror="this.style.display='none'; this.parentElement.style.display='none';">
         `;
-        
+
         galleryScroll.appendChild(galleryItem);
     }
 }
@@ -316,7 +386,7 @@ function scrollGallery(direction) {
 }
 
 // Initialize gallery when page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const galleryScroll = document.getElementById('gallery-scroll');
 
     if (!galleryScroll) {
